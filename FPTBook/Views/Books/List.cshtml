@@ -1,0 +1,25 @@
+﻿@model List<FPTBook.Models.Book>
+
+  @{
+      ViewData["Title"] = "Index";
+  }
+
+  <h1>List</h1>
+
+  <div class="container">
+      <div class="row">
+          @for (var i = 0; i < @Model.Count; i++)
+          {
+              <div class="col-md-4 col-6">
+                  <div class="card" style="width: 18rem;">
+                      <img src="" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title">@Model[i].Title</h5>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                          <a asp-action="AddToCart" asp-route-isbn="@Model[i].Isbn" class="btn btn-primary">Add to cart</a>
+                      </div>
+                  </div>
+              </div>
+          }
+      </div>
+  </div>
