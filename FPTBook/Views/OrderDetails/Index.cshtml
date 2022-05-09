@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Order.User.UserName)
             </td>
             <td>
-                @((item.Order.Total)/(item.Book.Price))
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Book.Title)

@@ -70,7 +70,7 @@ namespace FPTBook.Controllers
                     myOrder.UId = thisUserId;
                     myOrder.OrderDate = DateTime.Now;
                     myOrder.Total = myDetailsInCart.Select(c => c.Book.Price * c.Quantity)
-                        .Aggregate((c1, c2) => (c1 + c2)/2);
+                        .Aggregate((c1, c2) => Math.Round((c1 + c2),1));
                     _context.Add(myOrder);
                     await _context.SaveChangesAsync();
                     //Step 2: insert all order details by var "myDetailsInCart"
@@ -81,7 +81,7 @@ namespace FPTBook.Controllers
                         {
                             OrderId = myOrder.Id,
                             BookIsbn = item.BookIsbn,
-                            Quantity = 1
+                            Quantity = item.Quantity
                         };
                         _context.Add(detail);
                     }

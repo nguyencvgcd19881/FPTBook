@@ -44,10 +44,13 @@
                 @Html.DisplayFor(modelItem => item.Book.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
+			   <a asp-action="itemRemove" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">-</a> @Html.DisplayFor(modelItem => item.Quantity) <a asp-action="cartUpdate" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">+</a>
+			</td>
             <td>
-                @(tien)
+					@(Math.Round((item.Quantity) * (item.Book.Price),1))	
+				</td>
+            <td>
+                 <a asp-action="Remove" asp-route-isbn="@item.BookIsbn" class="btn btn-primary">Remove</a>
             </td>
         </tr>
 }
@@ -56,7 +59,7 @@
     <td></td>
     <td></td>
     <td></td>
-    <td>Total: @(total)</td>
+    <td>Total: @(Math.Round(total,1))</td>
 </tr>
     </tbody>
     </table>
