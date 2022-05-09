@@ -30,9 +30,6 @@ namespace FPTBook.Controllers
             var fPTBookContext = _context.Cart.Include(c => c.Book).Include(c => c.User);
             return View(await fPTBookContext.ToListAsync());
 
-            string thisUserId = _userManager.GetUserId(HttpContext.User);
-            return View(_context.Cart.Where(c => c.UId == thisUserId));
-
         }
 
         // GET: Carts/Details/5

@@ -70,9 +70,8 @@
                 @Html.DisplayFor(modelItem => item.Desc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
+                <img src="@Html.DisplayFor(modelItem => item.ImgUrl)"/>
             </td>
-        
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Isbn">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Isbn">Details</a> |

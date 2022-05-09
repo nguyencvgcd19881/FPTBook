@@ -8,22 +8,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FPTBook.Data;
 using FPTBook.Models;
+using Microsoft.AspNetCore.Identity;
+using FPTBook.Areas.Identity.Data;
 
 namespace FPTBook.Controllers
 {
     public class StoresController : Controller
     {
         private readonly FPTBookContext _context;
+        private readonly UserManager<FPTBookUser> _userManager;
 
-        public StoresController(FPTBookContext context)
+        public StoresController(FPTBookContext context, UserManager<FPTBookUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Stores
         public async Task<IActionResult> Index()
         {
-            var userContext = _context.Store.Include(s => s.User);
+            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
+            var userContext = _context.Store.Include(s => s.User).Where(s => s.UId == thisUser.Id);
+            
             return View(await userContext.ToListAsync());
         }
 
@@ -49,7 +55,7 @@ namespace FPTBook.Controllers
         // GET: Stores/Create
         public IActionResult Create()
         {
-            ViewData["UId"] = new SelectList(_context.Users, "Id", "Id");
+            
             return View();
         }
 
@@ -58,15 +64,13 @@ namespace FPTBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,Slogan,UId")] Store store)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(store);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UId"] = new SelectList(_context.Users, "Id", "Id", store.UId);
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,Slogan")] Store store)
+        {  
+            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
+            store.UId = thisUser.Id;
+            _context.Add(store);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             return View(store);
         }
 

@@ -1,4 +1,4 @@
-﻿@model FPTBook.Models.Order
+﻿@model FPTBook.Models.OrderDetail
 
 @{
     ViewData["Title"] = "Create";
@@ -6,25 +6,24 @@
 
 <h1>Create</h1>
 
-<h4>Order</h4>
+<h4>OrderDetail</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UId" class="control-label"></label>
-                <select asp-for="UId" class ="form-control" asp-items="ViewBag.UId"></select>
+                <label asp-for="OrderId" class="control-label"></label>
+                <select asp-for="OrderId" class ="form-control" asp-items="ViewBag.OrderId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
+                <label asp-for="BookIsbn" class="control-label"></label>
+                <select asp-for="BookIsbn" class ="form-control" asp-items="ViewBag.BookIsbn"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
