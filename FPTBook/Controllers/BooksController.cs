@@ -103,10 +103,10 @@ namespace FPTBook.Controllers
 
         public async Task<IActionResult> Index(int id, string searchString)
         {
-            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
-            Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id);
-
-            var books1 = from b in _context.Book.Where(b => b.StoreId == thisStore.Id)
+            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User); // lien ket toi link cua user nay`
+            Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id); //
+            var userContext = _context.Book.Where(b => b.StoreId == thisStore.Id).Include(b => b.Store);
+            var books1 = from b in userContext
                          select b;
 
             if (!String.IsNullOrEmpty(searchString))

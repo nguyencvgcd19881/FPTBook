@@ -34,7 +34,10 @@ namespace FPTBook.Controllers
         [Authorize(Roles = "Seller")]
         public async Task<IActionResult> sellHistoryOrder()
         {
-            var userContext = _context.Order.Include(o => o.User);
+            FPTBookUser thisUser = await _userManager.GetUserAsync(HttpContext.User);
+            Store thisStore = await _context.Store.FirstOrDefaultAsync(s => s.UId == thisUser.Id);
+            OrderDetail thisOrderDetail = _context.OrderDetail.FirstOrDefault(od => od.Book.StoreId == thisStore.Id);
+            var userContext = _context.Order.Where(o=>o.Id == thisOrderDetail.OrderId).Include(o => o.User);
             return View(await userContext.ToListAsync());
         }
 

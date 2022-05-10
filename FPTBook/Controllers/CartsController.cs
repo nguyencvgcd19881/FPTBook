@@ -27,6 +27,7 @@ namespace FPTBook.Controllers
         // GET: Carts
         public async Task<IActionResult> Index()
         {
+            string thisUserId = _userManager.GetUserId(HttpContext.User);
             var fPTBookContext = _context.Cart.Include(c => c.Book).Include(c => c.User);
             return View(await fPTBookContext.ToListAsync());
 
