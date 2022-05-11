@@ -28,16 +28,16 @@ namespace FPTBook.Controllers
 
         // GET: OrderDetails
         [Authorize(Roles = " Customer")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             string thisUsers = _userManager.GetUserId(HttpContext.User);
-            var fPTBookContext = _context.OrderDetail.Where(o => o.Order.UId == thisUsers).Include(o => o.Book).Include(o => o.Order).Include(o => o.Order.User).Include(o => o.Book.Store);
+            var fPTBookContext = _context.OrderDetail.Where(o => o.Order.UId == thisUsers && o.OrderId == id).Include(o => o.Book).Include(o => o.Order).Include(o => o.Order.User).Include(o => o.Book.Store);
             return View(await fPTBookContext.ToListAsync());
         }
         [Authorize(Roles = " Seller")]
-        public async Task<IActionResult> managerOrder()
+        public async Task<IActionResult> managerOrder(int id)
         {
-            var managerOrder = _context.OrderDetail.Include(o => o.Book).Include(o => o.Order).Include(o => o.Order.User).Include(o => o.Book.Store);
+            var managerOrder = _context.OrderDetail.Where(o => o.OrderId == id).Include(o => o.Book).Include(o => o.Order).Include(o => o.Order.User).Include(o => o.Book.Store);
             return View(await managerOrder.ToListAsync());
         }
     }
