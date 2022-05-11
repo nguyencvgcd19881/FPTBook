@@ -34,7 +34,7 @@
                         @if (User.IsInRole("Customer"))
                         {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="Index">Cart</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Carts" asp-action="Index">Cart(@ViewBag.Item)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">History Order</a>
@@ -54,7 +54,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="text-align: center;">
             &copy; 2022 - FPTBook - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
