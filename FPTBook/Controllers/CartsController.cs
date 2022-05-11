@@ -27,10 +27,12 @@ namespace FPTBook.Controllers
         // GET: Carts
         public async Task<IActionResult> Index()
         {
-            string thisUserId = _userManager.GetUserId(HttpContext.User);
-            var fPTBookContext = _context.Cart.Include(c => c.Book).Include(c => c.User);
-            return View(await fPTBookContext.ToListAsync());
 
+            string thisUserId = _userManager.GetUserId(HttpContext.User);
+            var userContext = _context.Cart.Where(c => c.UId == thisUserId).Include(c => c.Book).Include(c => c.User);
+            int numberOfItem = await userContext.CountAsync();
+            ViewBag.Item = numberOfItem;
+            return View(await userContext.ToListAsync());
         }
         public async Task<IActionResult> cartUpdate(string isbn)
         {
