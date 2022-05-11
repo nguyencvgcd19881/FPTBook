@@ -149,7 +149,7 @@ namespace FPTBook.Controllers
             ViewBag.currentPage = id;
             List<Book> books = await books1
                 .Skip(id * _recordsPerPages)  //Offset SQL
-                .Take(_recordsPerPages)       //Top SQL
+                .Take(_recordsPerPages)       //Top SQLl
                 .ToListAsync();
             return View(books);
         }
