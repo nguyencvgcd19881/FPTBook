@@ -68,6 +68,6 @@ namespace FPTBook.Controllers
             _context.Remove(fromDb);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
-        }s
+        }
     }
 }
